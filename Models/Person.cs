@@ -3,6 +3,11 @@ namespace loans_api.Models
     public class Person
     {
         /// <summary>
+        ///     Unique identifier of a person.
+        /// </summary>
+        public long Id { get; set; }
+
+        /// <summary>
         ///     First name of the person.
         /// </summary>
         /// <example>
@@ -47,7 +52,8 @@ namespace loans_api.Models
         ///     the new user is created.
         /// </summary>
         protected Person() 
-        { 
+        {
+            Id = 1;
             CreatedOn = DateTime.Now;
         }
 

@@ -15,9 +15,13 @@ namespace loans_api.Controllers
         }
 
         [HttpGet(Name = "GetPerson")]
-        public IEnumerable<Person> Get()
+        public Task<Person> Get()
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Instianciating the new Person object");
+
+            Person person = new("Carlos", "Daniel", "Jimenez", "10/02/1998");
+
+            return Task.FromResult(person);
         }
     }
 }
