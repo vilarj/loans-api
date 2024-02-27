@@ -1,5 +1,6 @@
 using loans_api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace loans_api.Controllers
 {
@@ -20,6 +21,7 @@ namespace loans_api.Controllers
         ///     The sucessfully completed Task.
         /// </returns>
         [HttpGet]
+        [ProducesResponseType(200)]
         public Task<Person> GetAPerson()
         {
             Person person = new("Carlos", "Daniel", "Jimenez", "10/02/1998");
@@ -37,7 +39,9 @@ namespace loans_api.Controllers
         ///     The sucessfully completed Task.
         /// </returns>
         [HttpGet("{Id}")]
-        public Task<Person> GetAPersonBy(long id)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public Task<Person> GetAPersonBy([BindRequired] long id)
         {
             throw new NotImplementedException();
         }
@@ -50,7 +54,9 @@ namespace loans_api.Controllers
         /// </param>
         /// <returns></returns>
         [HttpGet("{Ids}")]
-        public Task<Person> GetAListOfPeople(List<long> ids)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public Task<Person> GetAListOfPeople([BindRequired] List<long> ids)
         {
             throw new NotImplementedException();
         }
@@ -73,8 +79,10 @@ namespace loans_api.Controllers
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        [HttpPost("{first}/middle/{last}/{dbo}")]
-        public Task<Person> CreateAPersonFull(string first, string middle, string last, string dbo)
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public Task<Person> CreateAPersonFull([BindRequired] string first, string middle, [BindRequired] string last, [BindRequired] string dbo)
         {
             throw new NotImplementedException();
         }
@@ -92,8 +100,10 @@ namespace loans_api.Controllers
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        [HttpPut("{Id}/{middle}")]
-        public Task<Person> UpdateAPerson(long id, string middle)
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public Task<Person> UpdateAPerson([BindRequired] long id, [BindRequired] string middle)
         {
             throw new NotImplementedException();
         }
@@ -108,7 +118,9 @@ namespace loans_api.Controllers
         ///     The sucessfully completed Task.
         /// </returns>
         [HttpDelete("{Id}")]
-        public Task<Person> DeleteAPerson(long id)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public Task<Person> DeleteAPerson([BindRequired] long id)
         {
             throw new NotImplementedException();
         }
