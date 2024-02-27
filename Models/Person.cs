@@ -1,42 +1,53 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace loans_api.Models
 {
     public class Person
     {
         /// <summary>
         ///     Unique identifier of a person.
+        ///     Key.
         /// </summary>
+        [Key]
         public long Id { get; set; }
 
         /// <summary>
         ///     First name of the person.
+        ///     Required.
         /// </summary>
         /// <example>
         ///     Ash
         /// </example>
-        public string? FirstName { get; set; } = null!;
+        [Required]
+        public string FirstName { get; set; } = null!;
 
         /// <summary>
         ///     Middle name of the person.
+        ///     Optional.
         /// </summary>
         /// <example>
         ///     Daniel
         /// </example>
-        public string? MiddleName { get; set; } = null!;
+        public string? MiddleName { get; set; }
 
         /// <summary>
         ///     Last name of the person.
+        ///     Required.
         /// </summary>
         /// <example>
         ///     Harden
         /// </example>
-        public string? LastName { get; set; } = null!;
+        [Required]
+        public string LastName { get; set; } = null!;
 
         /// <summary>
         ///     Date of birth of the person.
+        ///     Required.
         /// </summary>
         /// <example>
         ///     12/25/2015
         /// </example>
+        [Required]
         public string DOB { get; set; } = null!;
 
         /// <summary>
@@ -53,7 +64,6 @@ namespace loans_api.Models
         /// </summary>
         protected Person() 
         {
-            Id = 1;
             CreatedOn = DateTime.Now;
         }
 

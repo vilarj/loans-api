@@ -5,13 +5,12 @@ namespace loans_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class PersonController : ControllerBase
     {
-        private readonly ILogger<PersonController> _logger;
-
-        public PersonController(ILogger<PersonController> logger)
+        public PersonController()
         {
-            _logger = logger;
+
         }
 
         /// <summary>
@@ -20,11 +19,9 @@ namespace loans_api.Controllers
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        [HttpGet(Name = "/GetAPerson")]
+        [HttpGet]
         public Task<Person> GetAPerson()
         {
-            _logger.LogInformation("Instianciating the new Person object");
-
             Person person = new("Carlos", "Daniel", "Jimenez", "10/02/1998");
 
             return Task.FromResult(person);
