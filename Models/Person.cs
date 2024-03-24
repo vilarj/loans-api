@@ -8,6 +8,9 @@ namespace loans_api.Models
         ///     Unique identifier of a person.
         ///     Key.
         /// </summary>
+        /// <example>
+        ///     123456
+        /// </example>
         [Key]
         public long Id { get; set; }
 
@@ -56,6 +59,7 @@ namespace loans_api.Models
         /// <example>
         ///     12/25/2015 12:00:00 AM
         /// </example>
+        [Required]
         public DateTime CreatedOn { get; set; }
         
         /// <summary>
@@ -71,6 +75,9 @@ namespace loans_api.Models
         ///     Single instance of <c>Person</c> for creating a new user given
         ///     the following args:
         /// </summary>
+        /// <param name="id">
+        ///      Unique identifier of the Person.
+        /// </param>
         /// <param name="firstName">
         ///      First name of the person.
         /// </param>
@@ -80,8 +87,9 @@ namespace loans_api.Models
         /// <param name="dOB">
         ///     Date of birth of the person.
         /// </param>
-        public Person(string firstName, string lastName, string dOB)
+        public Person(long id, string firstName, string lastName, string dOB)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             DOB = dOB;
@@ -91,6 +99,9 @@ namespace loans_api.Models
         ///     Single instance of <c>Person</c> for creating a new user given
         ///     the following args:
         /// </summary>
+        /// <param name="id">
+        ///      Unique identifier of the Person.
+        /// </param>
         /// <param name="firstName">
         ///      First name of the person.
         /// </param>
@@ -103,7 +114,8 @@ namespace loans_api.Models
         /// <param name="dOB">
         ///     Date of birth of the person.
         /// </param>
-        public Person(string firstName, string middleName, string lastName, string dOB) : this(firstName, lastName, dOB)
+        public Person(long id, string firstName, string middleName, string lastName, string dOB)
+            : this(id, firstName, lastName, dOB)
         {
             MiddleName = middleName;
         }

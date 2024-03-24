@@ -9,6 +9,13 @@ namespace loans_api.Controllers
     [Produces("application/json")]
     public class PersonController : ControllerBase
     {
+        private readonly List<Person> people = new()
+        {
+            new Person(0, "Kobe", "Harden", "01/01/1999"),
+            new Person(1, "Dave", "Lebron", "Jimenez", "02/02/1967"),
+            new Person(2,"Hosea", "Bell", "11/01/1980"),
+        };
+
         public PersonController()
         {
 
@@ -24,9 +31,7 @@ namespace loans_api.Controllers
         [ProducesResponseType(200)]
         public Task<Person> GetAPerson()
         {
-            Person person = new("Carlos", "Daniel", "Jimenez", "10/02/1998");
-
-            return Task.FromResult(person);
+            return Task.FromResult(people[0]);
         }
 
         /// <summary>
@@ -41,25 +46,10 @@ namespace loans_api.Controllers
         [HttpGet("{Id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public Task<Person> GetAPersonBy([BindRequired] long id)
+        public Task GetAPersonBy([BindRequired] long id)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        ///     GET endpoint that retrieves a list of people given a list of unique identifiers.
-        /// </summary>
-        /// <param name="ids">
-        ///     List of unique identifiers of people to be retrieved.
-        /// </param>
-        /// <returns></returns>
-        [HttpGet("{Ids}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public Task<Person> GetAListOfPeople([BindRequired] List<long> ids)
-        {
-            throw new NotImplementedException();
-        }
+            return Task.FromResult(people.Where(personId => personId.Id == id));
+        } 
 
         /// <summary>
         ///     POST endpoint that creates a person with all the possible arguments.
@@ -82,7 +72,9 @@ namespace loans_api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public Task<Person> CreateAPersonFull([BindRequired] string first, string middle, [BindRequired] string last, [BindRequired] string dbo)
+        public Task<Person> CreateAPersonFull(
+                [BindRequired] string first, string middle,
+                [BindRequired] string last, [BindRequired] string dbo)
         {
             throw new NotImplementedException();
         }
