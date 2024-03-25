@@ -5,9 +5,9 @@ namespace loans_api.Controllers
     [Produces("application/json")]
     public class PersonController : ControllerBase
     {
-        protected PersonService _personService;
+        protected IPerson _personService;
 
-        public PersonController(PersonService personService)
+        public PersonController(IPerson personService)
         {
             _personService = personService;
         }
