@@ -1,4 +1,5 @@
 using loans_api.Models;
+using loans_api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -9,16 +10,11 @@ namespace loans_api.Controllers
     [Produces("application/json")]
     public class PersonController : ControllerBase
     {
-        private readonly List<Person> people = new()
-        {
-            new Person(0, "Kobe", "Harden", "01/01/1999"),
-            new Person(1, "Dave", "Lebron", "Jimenez", "02/02/1967"),
-            new Person(2,"Hosea", "Bell", "11/01/1980"),
-        };
+        protected PersonService _personService;
 
-        public PersonController()
+        public PersonController(PersonService personService)
         {
-
+            _personService = personService;
         }
 
         /// <summary>
@@ -31,7 +27,7 @@ namespace loans_api.Controllers
         [ProducesResponseType(200)]
         public Task<Person> GetAPerson()
         {
-            return Task.FromResult(people[0]);
+            return _personService.GetAPerson();
         }
 
         /// <summary>
@@ -48,7 +44,7 @@ namespace loans_api.Controllers
         [ProducesResponseType(400)]
         public Task GetAPersonBy([BindRequired] long id)
         {
-            return Task.FromResult(people.Where(personId => personId.Id == id));
+            return _personService.GetAPersonBy(id);
         } 
 
         /// <summary>
@@ -76,7 +72,7 @@ namespace loans_api.Controllers
                 [BindRequired] string first, string middle,
                 [BindRequired] string last, [BindRequired] string dbo)
         {
-            throw new NotImplementedException();
+            return _personService.CreateAPersonFull(first, middle, last, dbo);
         }
 
         /// <summary>
@@ -97,7 +93,7 @@ namespace loans_api.Controllers
         [ProducesResponseType(400)]
         public Task<Person> UpdateAPerson([BindRequired] long id, [BindRequired] string middle)
         {
-            throw new NotImplementedException();
+            return _personService.UpdateAPerson(id, middle);
         }
 
         /// <summary>
@@ -114,7 +110,7 @@ namespace loans_api.Controllers
         [ProducesResponseType(400)]
         public Task<Person> DeleteAPerson([BindRequired] long id)
         {
-            throw new NotImplementedException();
+            return _personService.DeleteAPerson(id);
         }
     }
 }
