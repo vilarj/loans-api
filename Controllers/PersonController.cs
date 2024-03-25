@@ -20,9 +20,9 @@ namespace loans_api.Controllers
         /// </returns>
         [HttpGet]
         [ProducesResponseType(200)]
-        public Task<Person> GetAPerson()
+        public async Task<Person> GetAPersonAsync()
         {
-            return _personService.GetAPerson();
+            return await _personService.GetAPerson();
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace loans_api.Controllers
         [HttpGet("{Id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public Task GetAPersonBy([BindRequired] long id)
+        public async Task<Person> GetAPersonByIdAsync(long id)
         {
-            return _personService.GetAPersonBy(id);
+            return await _personService.GetAPersonById(id);
         } 
 
         /// <summary>
@@ -63,9 +63,7 @@ namespace loans_api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public Task<Person> CreateAPersonFull(
-                [BindRequired] string first, string middle,
-                [BindRequired] string last, [BindRequired] string dbo)
+        public Task<Person> CreateAPersonFullAsync(string first, string middle, string last, string dbo)
         {
             return _personService.CreateAPersonFull(first, middle, last, dbo);
         }
@@ -86,9 +84,9 @@ namespace loans_api.Controllers
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public Task<Person> UpdateAPerson([BindRequired] long id, [BindRequired] string middle)
+        public async Task<Person> UpdateAPersonAsync(long id, string middle)
         {
-            return _personService.UpdateAPerson(id, middle);
+            return await _personService.UpdateAPerson(id, middle);
         }
 
         /// <summary>
@@ -103,9 +101,9 @@ namespace loans_api.Controllers
         [HttpDelete("{Id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public Task<Person> DeleteAPerson([BindRequired] long id)
+        public async Task<Person> DeleteAPersonAsync(long id)
         {
-            return _personService.DeleteAPerson(id);
+            return await _personService.DeleteAPerson(id);
         }
     }
 }

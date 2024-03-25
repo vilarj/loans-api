@@ -4,12 +4,12 @@
     {
         Task<Person> GetAPerson();
 
-        Task GetAPersonBy([BindRequired] long id);
+        Task<Person> GetAPersonById(long id);
 
-        Task<Person> CreateAPersonFull([BindRequired] string first, string middle, [BindRequired] string last, [BindRequired] string dbo);
+        Task<Person> CreateAPersonFull(string first, string middle, string last, string dbo);
 
-        Task<Person> UpdateAPerson([BindRequired] long id, [BindRequired] string middle);
+        Task<Person> UpdateAPerson(long id, string middle);
 
-        Task<Person> DeleteAPerson([BindRequired] long id);
+        Task<Person> DeleteAPerson(long id);
     }
 }

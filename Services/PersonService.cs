@@ -27,7 +27,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> CreateAPersonFull([BindRequired] string first, string middle, [BindRequired] string last, [BindRequired] string dbo)
+        public Task<Person> CreateAPersonFull(string first, string middle, string last, string dbo)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> DeleteAPerson([BindRequired] long id)
+        public Task<Person> DeleteAPerson(long id)
         {
             throw new NotImplementedException();
         }
@@ -66,9 +66,9 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task GetAPersonBy([BindRequired] long id)
+        public Task<Person> GetAPersonById(long id)
         {
-            return Task.FromResult(people.Where(personId => personId.Id == id));
+            return Task.FromResult(people[0]);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> UpdateAPerson([BindRequired] long id, [BindRequired] string middle)
+        public Task<Person> UpdateAPerson(long id, string middle)
         {
             throw new NotImplementedException();
         }
