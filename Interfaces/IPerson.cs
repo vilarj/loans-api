@@ -1,8 +1,4 @@
-﻿using loans_api.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace loans_api.Interfaces
+﻿namespace loans_api.Interfaces
 {
     public interface IPerson
     {

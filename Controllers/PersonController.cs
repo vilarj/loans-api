@@ -1,8 +1,3 @@
-using loans_api.Models;
-using loans_api.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 namespace loans_api.Controllers
 {
     [ApiController]

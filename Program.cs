@@ -1,7 +1,14 @@
-using Microsoft.OpenApi.Models;
+global using loans_api.Interfaces;
+global using loans_api.Services;
+global using loans_api.Models;
+global using Microsoft.OpenApi.Models;
+global using Microsoft.AspNetCore.Mvc;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -25,7 +32,9 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 });
+builder.Services.AddScoped<IPerson, PersonService>();
 
+// App
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

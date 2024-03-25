@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace loans_api.Models
 {
     public class Person
