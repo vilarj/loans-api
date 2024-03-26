@@ -6,7 +6,7 @@
 
         Task<ServiceResponse<Person>> GetAPersonById(long id);
 
-        Task<ServiceResponse<Person>> CreateAPersonFull(string first, string middle, string last, string dbo);
+        Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson);
 
         Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle);
 

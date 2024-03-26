@@ -2,7 +2,7 @@
 {
 	public class PersonService : IPerson
     {
-        private readonly List<Person> people = new()
+        private List<Person> people = new()
         {
             new Person(0, "Kobe", "Harden", "01/01/1999"),
             new Person(1, "Dave", "Lebron", "Jimenez", "02/02/1967"),
@@ -29,9 +29,16 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<Person>> CreateAPersonFull(string first, string middle, string last, string dbo)
+        public Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson)
         {
-            throw new NotImplementedException();
+            var sr = new ServiceResponse<List<Person>>();
+
+            people.Add(newPerson);
+            sr.Data = people;
+            sr.Message = "";
+            sr.Success = true;
+
+            return sr;
         }
 
         /// <summary>
@@ -43,7 +50,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<Person>> DeleteAPerson(long id)
+        public async Task<ServiceResponse<Person>> DeleteAPerson(long id)
         {
             throw new NotImplementedException();
         }
@@ -54,13 +61,13 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<Person>> GetAPerson()
+        public async Task<ServiceResponse<Person>> GetAPerson()
         {
             response.Data = people[1];
             response.Success = true;
             response.Message = "Sucessful request";
 
-            return Task.FromResult(response);
+            return await Task.FromResult(response);
         }
 
         /// <summary>
@@ -72,13 +79,13 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<Person>> GetAPersonById(long id)
+        public async Task<ServiceResponse<Person>> GetAPersonById(long id)
         {
             response.Data = people.SingleOrDefault(person => person.Id == id);
             response.Success = true;
             response.Message = "Sucessful request";
 
-            return Task.FromResult(response);
+            return await Task.FromResult(response);
         }
 
         /// <summary>
@@ -94,7 +101,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle)
+        public async Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle)
         {
             var matchingPerson = people.SingleOrDefault(person => person.Id == id);
 
@@ -105,7 +112,7 @@
             response.Success = true;
             response.Message = $"Middle name for person id {id} was updated successfully";
 
-            return Task.FromResult(response);
+            return await Task.FromResult(response);
         }
     }
 }

@@ -2,7 +2,6 @@ namespace loans_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Produces("application/json")]
     public class PersonController : ControllerBase
     {
         protected IPerson _personService;
@@ -63,9 +62,9 @@ namespace loans_api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public Task<ServiceResponse<Person>> CreateAPersonFullAsync(string first, string middle, string last, string dbo)
+        public async Task<ServiceResponse<List<Person>>> CreateAPersonFullAsync(Person newPerson)
         {
-            return _personService.CreateAPersonFull(first, middle, last, dbo);
+            return await _personService.CreateAPersonFull(newPerson);
         }
 
         /// <summary>
