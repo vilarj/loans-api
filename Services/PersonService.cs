@@ -29,7 +29,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson)
+        public async Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson)
         {
             var sr = new ServiceResponse<List<Person>>();
 
@@ -37,7 +37,6 @@
             sr.Data = people;
             sr.Message = "";
             sr.Success = true;
-
             return sr;
         }
 
