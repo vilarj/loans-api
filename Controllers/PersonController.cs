@@ -20,7 +20,7 @@ namespace loans_api.Controllers
         /// </returns>
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<Person> GetAPersonAsync()
+        public async Task<ServiceResponse<Person>> GetAPersonAsync()
         {
             return await _personService.GetAPerson();
         }
@@ -37,7 +37,7 @@ namespace loans_api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<Person> GetAPersonByIdAsync(long id)
+        public async Task<ServiceResponse<Person>> GetAPersonByIdAsync(long id)
         {
             return await _personService.GetAPersonById(id);
         } 
@@ -63,7 +63,7 @@ namespace loans_api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public Task<Person> CreateAPersonFullAsync(string first, string middle, string last, string dbo)
+        public Task<ServiceResponse<Person>> CreateAPersonFullAsync(string first, string middle, string last, string dbo)
         {
             return _personService.CreateAPersonFull(first, middle, last, dbo);
         }
@@ -84,7 +84,7 @@ namespace loans_api.Controllers
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<Person> UpdateAPersonAsync(long id, string middle)
+        public async Task<ServiceResponse<Person>> UpdateAPersonAsync(long id, string middle)
         {
             return await _personService.UpdateAPerson(id, middle);
         }
@@ -101,7 +101,7 @@ namespace loans_api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<Person> DeleteAPersonAsync(long id)
+        public async Task<ServiceResponse<Person>> DeleteAPersonAsync(long id)
         {
             return await _personService.DeleteAPerson(id);
         }

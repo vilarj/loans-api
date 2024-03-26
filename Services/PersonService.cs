@@ -6,8 +6,10 @@
         {
             new Person(0, "Kobe", "Harden", "01/01/1999"),
             new Person(1, "Dave", "Lebron", "Jimenez", "02/02/1967"),
-            new Person(2,"Hosea", "Bell", "11/01/1980"),
+            new Person(2, "Hosea", "Bell", "11/01/1980"),
         };
+
+        private readonly ServiceResponse<Person> response = new();
 
         /// <summary>
         ///     POST endpoint that creates a person with all the possible arguments.
@@ -27,7 +29,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> CreateAPersonFull(string first, string middle, string last, string dbo)
+        public Task<ServiceResponse<Person>> CreateAPersonFull(string first, string middle, string last, string dbo)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +43,7 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> DeleteAPerson(long id)
+        public Task<ServiceResponse<Person>> DeleteAPerson(long id)
         {
             throw new NotImplementedException();
         }
@@ -52,9 +54,13 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> GetAPerson()
+        public Task<ServiceResponse<Person>> GetAPerson()
         {
-            return Task.FromResult(people[1]);
+            response.Data = people[1];
+            response.Success = true;
+            response.Message = "Sucessful request";
+
+            return Task.FromResult(response);
         }
 
         /// <summary>
@@ -66,9 +72,13 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> GetAPersonById(long id)
+        public Task<ServiceResponse<Person>> GetAPersonById(long id)
         {
-            return Task.FromResult(people[0]);
+            response.Data = people.SingleOrDefault(person => person.Id == id);
+            response.Success = true;
+            response.Message = "Sucessful request";
+
+            return Task.FromResult(response);
         }
 
         /// <summary>
@@ -84,9 +94,18 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public Task<Person> UpdateAPerson(long id, string middle)
+        public Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle)
         {
-            throw new NotImplementedException();
+            var matchingPerson = people.SingleOrDefault(person => person.Id == id);
+
+            if (matchingPerson != null)
+                matchingPerson.MiddleName = middle;
+
+            response.Data = matchingPerson;
+            response.Success = true;
+            response.Message = $"Middle name for person id {id} was updated successfully";
+
+            return Task.FromResult(response);
         }
     }
 }

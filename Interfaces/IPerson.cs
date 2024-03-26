@@ -2,14 +2,14 @@
 {
     public interface IPerson
     {
-        Task<Person> GetAPerson();
+        Task<ServiceResponse<Person>> GetAPerson();
 
-        Task<Person> GetAPersonById(long id);
+        Task<ServiceResponse<Person>> GetAPersonById(long id);
 
-        Task<Person> CreateAPersonFull(string first, string middle, string last, string dbo);
+        Task<ServiceResponse<Person>> CreateAPersonFull(string first, string middle, string last, string dbo);
 
-        Task<Person> UpdateAPerson(long id, string middle);
+        Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle);
 
-        Task<Person> DeleteAPerson(long id);
+        Task<ServiceResponse<Person>> DeleteAPerson(long id);
     }
 }
