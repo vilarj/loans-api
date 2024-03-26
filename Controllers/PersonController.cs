@@ -34,7 +34,7 @@ namespace loans_api.Controllers
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<Person> GetAPersonByIdAsync(long id)
@@ -98,7 +98,7 @@ namespace loans_api.Controllers
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        [HttpDelete("{Id}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<Person> DeleteAPersonAsync(long id)
