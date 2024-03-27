@@ -104,7 +104,7 @@
             }
 
             // Check: No matching record
-            else if (IsMatch(people, id))
+            else if (!IsMatch(people, id))
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = $"No person associated with this id {id}";
@@ -138,17 +138,37 @@
         /// </returns>
         public async Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle)
         {
-            var serviceResponse = new ServiceResponse<Person>();
-            var matchingPerson = people.SingleOrDefault(person => person.Id == id);
 
-            if (matchingPerson != null)
-                matchingPerson.MiddleName = middle;
+            if (IsEmpty(people))
+            {
+                var serviceResponse = new ServiceResponse<Person>();
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
 
-            serviceResponse.Data = matchingPerson;
-            serviceResponse.Success = true;
-            serviceResponse.Message = $"Middle name for person id {id} was updated successfully";
+                return await Task.FromResult(serviceResponse);
+            }
 
-            return await Task.FromResult(serviceResponse);
+            else if (!IsMatch(people, id))
+            {
+                var serviceResponse = new ServiceResponse<Person>();
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
+
+                return await Task.FromResult(serviceResponse);
+            }
+
+            else
+            {
+                var serviceResponse = new ServiceResponse<Person>();
+                
+                var match = people.SingleOrDefault(person => person.Id == id);
+                match.MiddleName = middle;
+
+                serviceResponse.Success = true;
+                serviceResponse.Message = $"Middle name for person id {id} was updated successfully";
+
+                return await Task.FromResult(serviceResponse);
+            }
         }
 
         /// <summary>
@@ -179,7 +199,7 @@
         /// </returns>
         private static bool IsMatch(List<Person> person, long id)
         {
-            return !person.Any(p => p.Id == id);
+            return person.Any(p => p.Id == id);
         }
     }
 }
