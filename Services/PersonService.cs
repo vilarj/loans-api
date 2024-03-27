@@ -95,7 +95,7 @@
             var serviceResponse = new ServiceResponse<Person>();
 
             // Check: No records at all
-            if (people.Count == 0)
+            if (IsEmpty(people))
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = $"No person associated with this id {id}";
@@ -104,7 +104,7 @@
             }
 
             // Check: No matching record
-            else if (!people.Any(x => x.Id == id))
+            else if (IsMatch(people, id))
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = $"No person associated with this id {id}";
@@ -149,6 +149,37 @@
             serviceResponse.Message = $"Middle name for person id {id} was updated successfully";
 
             return await Task.FromResult(serviceResponse);
+        }
+
+        /// <summary>
+        ///     Determines if the list contains elements in it.
+        /// </summary>
+        /// <param name="person">
+        ///     List of people of type <c>Person</c>.
+        /// </param>
+        /// <returns>
+        ///     true/false based on the number of elements in the list.
+        /// </returns>
+        private static bool IsEmpty(List<Person> person)
+        {
+            return person.Count == 0;
+        }
+
+        /// <summary>
+        ///     Determines if the person exists in the list of people.
+        /// </summary>
+        /// <param name="person">
+        ///     List of people of type <c>Person</c> to be matched.
+        /// </param>
+        /// <param name="id">
+        ///     Unique identifier of type <c>long</c> for a <c>Person</c>.
+        /// </param>
+        /// <returns>
+        ///     true/false based on the id of the person to be matched.
+        /// </returns>
+        private static bool IsMatch(List<Person> person, long id)
+        {
+            return !person.Any(p => p.Id == id);
         }
     }
 }
