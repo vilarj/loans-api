@@ -10,6 +10,6 @@
 
         Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle);
 
-        Task<ServiceResponse<Person>> DeleteAPerson(long id);
+        Task<ServiceResponse<List<Person>>> DeleteAPerson(long id);
     }
 }

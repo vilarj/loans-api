@@ -9,8 +9,6 @@
             new Person(2, "Hosea", "Bell", "11/01/1980"),
         };
 
-        private readonly ServiceResponse<Person> response = new();
-
         /// <summary>
         ///     POST endpoint that creates a person with all the possible arguments.
         /// </summary>
@@ -31,13 +29,14 @@
         /// </returns>
         public async Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson)
         {
-            var sr = new ServiceResponse<List<Person>>();
+            var serviceResponse = new ServiceResponse<List<Person>>();
 
             people.Add(newPerson);
-            sr.Data = people;
-            sr.Message = "";
-            sr.Success = true;
-            return sr;
+            serviceResponse.Data = people;
+            serviceResponse.Message = $"{newPerson}\nwas created";
+            serviceResponse.Success = true;
+
+            return serviceResponse;
         }
 
         /// <summary>
@@ -49,9 +48,19 @@
         /// <returns>
         ///     The sucessfully completed Task.
         /// </returns>
-        public async Task<ServiceResponse<Person>> DeleteAPerson(long id)
+        public async Task<ServiceResponse<List<Person>>> DeleteAPerson(long id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<Person>>();
+            var personToBeRemoved = people.SingleOrDefault(person => person.Id == id);
+
+            if (personToBeRemoved != null)
+                people.Remove(personToBeRemoved);
+
+            serviceResponse.Data = people;
+            serviceResponse.Message = $"Person with id {id} was removed.";
+            serviceResponse.Success = true;
+
+            return serviceResponse;
         }
 
         /// <summary>
@@ -62,11 +71,14 @@
         /// </returns>
         public async Task<ServiceResponse<Person>> GetAPerson()
         {
-            response.Data = people[1];
-            response.Success = true;
-            response.Message = "Sucessful request";
+            var serviceResponse = new ServiceResponse<Person>
+            {
+                Data = people[1],
+                Success = true,
+                Message = "Sucessful request"
+            };
 
-            return await Task.FromResult(response);
+            return await Task.FromResult(serviceResponse);
         }
 
         /// <summary>
@@ -80,11 +92,35 @@
         /// </returns>
         public async Task<ServiceResponse<Person>> GetAPersonById(long id)
         {
-            response.Data = people.SingleOrDefault(person => person.Id == id);
-            response.Success = true;
-            response.Message = "Sucessful request";
+            var serviceResponse = new ServiceResponse<Person>();
 
-            return await Task.FromResult(response);
+            // Check: No records at all
+            if (people.Count == 0)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
+
+                return await Task.FromResult(serviceResponse);
+            }
+
+            // Check: No matching record
+            else if (!people.Any(x => x.Id == id))
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
+
+                return await Task.FromResult(serviceResponse);
+            }
+
+            // Check: Found a match
+            else
+            {
+                serviceResponse.Data = people.SingleOrDefault(person => person.Id == id);
+                serviceResponse.Success = true;
+                serviceResponse.Message = $"Retrieving associated person with id {id}";
+
+                return await Task.FromResult(serviceResponse);
+            }
         }
 
         /// <summary>
@@ -102,16 +138,17 @@
         /// </returns>
         public async Task<ServiceResponse<Person>> UpdateAPerson(long id, string middle)
         {
+            var serviceResponse = new ServiceResponse<Person>();
             var matchingPerson = people.SingleOrDefault(person => person.Id == id);
 
             if (matchingPerson != null)
                 matchingPerson.MiddleName = middle;
 
-            response.Data = matchingPerson;
-            response.Success = true;
-            response.Message = $"Middle name for person id {id} was updated successfully";
+            serviceResponse.Data = matchingPerson;
+            serviceResponse.Success = true;
+            serviceResponse.Message = $"Middle name for person id {id} was updated successfully";
 
-            return await Task.FromResult(response);
+            return await Task.FromResult(serviceResponse);
         }
     }
 }

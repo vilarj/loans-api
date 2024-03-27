@@ -100,7 +100,7 @@ namespace loans_api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ServiceResponse<Person>> DeleteAPersonAsync(long id)
+        public async Task<ServiceResponse<List<Person>>> DeleteAPersonAsync(long id)
         {
             return await _personService.DeleteAPerson(id);
         }
