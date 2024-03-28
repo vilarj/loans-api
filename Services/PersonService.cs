@@ -36,7 +36,7 @@
             serviceResponse.Message = $"{newPerson}\nwas created";
             serviceResponse.Success = true;
 
-            return serviceResponse;
+            return await Task.FromResult(serviceResponse);
         }
 
         /// <summary>
@@ -51,16 +51,37 @@
         public async Task<ServiceResponse<List<Person>>> DeleteAPerson(long id)
         {
             var serviceResponse = new ServiceResponse<List<Person>>();
-            var personToBeRemoved = people.SingleOrDefault(person => person.Id == id);
 
-            if (personToBeRemoved != null)
-                people.Remove(personToBeRemoved);
+            if (IsEmpty(people))
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
 
-            serviceResponse.Data = people;
-            serviceResponse.Message = $"Person with id {id} was removed.";
-            serviceResponse.Success = true;
+                return await Task.FromResult(serviceResponse);
+            }
 
-            return serviceResponse;
+            else if (!IsMatch(people, id))
+            {
+
+                serviceResponse.Success = false;
+                serviceResponse.Message = $"No person associated with this id {id}";
+
+                return await Task.FromResult(serviceResponse);
+            }
+
+            else
+            {
+                var personToBeRemoved = people.SingleOrDefault(person => person.Id == id);
+
+                if (personToBeRemoved != null)
+                    people.Remove(personToBeRemoved);
+
+                serviceResponse.Data = people;
+                serviceResponse.Message = $"Person with id {id} was removed.";
+                serviceResponse.Success = true;
+
+                return await Task.FromResult(serviceResponse);
+            }
         }
 
         /// <summary>
