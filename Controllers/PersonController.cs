@@ -4,7 +4,7 @@ namespace loans_api.Controllers
     [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
-        protected IPerson _personService;
+        private readonly IPerson _personService;
 
         public PersonController(IPerson personService)
         {
