@@ -2,7 +2,7 @@
 {
 	public class PersonService : IPerson
     {
-        private List<Person> people = new()
+        private readonly List<Person> people = new()
         {
             new Person(0, "Kobe", "Harden", "01/01/1999"),
             new Person(1, "Dave", "Lebron", "Jimenez", "02/02/1967"),
@@ -29,7 +29,7 @@
         /// </returns>
         public async Task<ServiceResponse<List<Person>>> CreateAPersonFull(Person newPerson)
         {
-            var serviceResponse = new ServiceResponse<List<Person>>();
+            ServiceResponse<List<Person>> serviceResponse = new();
 
             people.Add(newPerson);
             serviceResponse.Data = people;
@@ -50,7 +50,7 @@
         /// </returns>
         public async Task<ServiceResponse<List<Person>>> DeleteAPerson(long id)
         {
-            var serviceResponse = new ServiceResponse<List<Person>>();
+            ServiceResponse<List<Person>> serviceResponse = new();
 
             if (IsEmpty(people))
             {
@@ -113,7 +113,7 @@
         /// </returns>
         public async Task<ServiceResponse<Person>> GetAPersonById(long id)
         {
-            var serviceResponse = new ServiceResponse<Person>();
+            ServiceResponse<Person> serviceResponse = new();
 
             // Check: No records at all
             if (IsEmpty(people))
@@ -162,7 +162,7 @@
 
             if (IsEmpty(people))
             {
-                var serviceResponse = new ServiceResponse<Person>();
+                ServiceResponse<Person> serviceResponse = new();
                 serviceResponse.Success = false;
                 serviceResponse.Message = $"No person associated with this id {id}";
 
@@ -171,7 +171,7 @@
 
             else if (!IsMatch(people, id))
             {
-                var serviceResponse = new ServiceResponse<Person>();
+                ServiceResponse<Person> serviceResponse = new();
                 serviceResponse.Success = false;
                 serviceResponse.Message = $"No person associated with this id {id}";
 
@@ -180,9 +180,9 @@
 
             else
             {
-                var serviceResponse = new ServiceResponse<Person>();
-                
-                var match = people.SingleOrDefault(person => person.Id == id);
+                ServiceResponse<Person> serviceResponse = new();
+
+                Person? match = people.SingleOrDefault(person => person.Id == id);
                 match.MiddleName = middle;
 
                 serviceResponse.Success = true;

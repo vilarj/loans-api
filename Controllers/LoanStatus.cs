@@ -4,10 +4,13 @@
     [Route("api/[controller]")]
     public class LoanStatus : Controller
     {
+        private readonly ILoan _loanService;
+        private readonly IPerson _personServive;
 
-        public LoanStatus()
+        public LoanStatus(ILoan loanService, IPerson personService)
         {
-
+            _loanService = loanService;
+            _personServive = personService;
         }
 
         /// <summary>
@@ -25,6 +28,8 @@
         [ProducesResponseType(500)]
         public Task<string> GenerateLoanStatus(long id)
         {
+            // Check if the id is valid (if the user exists/if the id is not null)
+
             return null;
         }
     }
