@@ -28,9 +28,7 @@
         [ProducesResponseType(500)]
         public Task<string> GenerateLoanStatus(long id)
         {
-            // Check if the id is valid (if the user exists/if the id is not null)
-
-            return null;
+            return _loanService.GenerateLoanStatus(id);
         }
     }
 }

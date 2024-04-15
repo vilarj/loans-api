@@ -9,8 +9,11 @@
             new Person(2, "Hosea", "Bell", "11/01/1980"),
         };
 
+        // Generate PDF file report of the status of the loan.
+        // A loan can be in PreApproved, Approved, Pending Approval, Rejected.
         public Task<string> GenerateLoanStatus(long id)
         {
+            // Check if the id is valid (if the user exists/if the id is not null)
             throw new NotImplementedException();
         }
     }
