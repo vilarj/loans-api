@@ -2,7 +2,7 @@
 {
     public interface ILoan
     {
-        Task<string> GenerateLoanStatus(long id);
+        Task<ServiceResponse<string>> GenerateLoanStatusAsync(long id);
     }
 }
 
