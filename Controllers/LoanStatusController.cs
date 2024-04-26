@@ -26,7 +26,7 @@
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public Task<string> GenerateLoanStatus(long id)
+        public Task<ServiceResponse<string>> GenerateLoanStatus(long id)
         {
             return _loanService.GenerateLoanStatusAsync(id);
         }
