@@ -1,6 +1,6 @@
 ﻿namespace loans_api.Services
 {
-	public class PersonService : IPerson
+    public class PersonService : IPerson
     {
         private readonly List<Person> people = new()
         {

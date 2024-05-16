@@ -4,7 +4,6 @@ global using loans_api.Models;
 global using Microsoft.OpenApi.Models;
 global using Microsoft.AspNetCore.Mvc;
 global using System.ComponentModel.DataAnnotations;
-global using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 var builder = WebApplication.CreateBuilder(args);
 
