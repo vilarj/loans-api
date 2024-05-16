@@ -183,7 +183,9 @@
                 ServiceResponse<Person> serviceResponse = new();
 
                 Person? match = people.SingleOrDefault(person => person.Id == id);
-                match.MiddleName = middle;
+
+                if (match != null)
+                    match.MiddleName = middle;
 
                 serviceResponse.Success = true;
                 serviceResponse.Message = $"Middle name for person id {id} was updated successfully";
